@@ -1,7 +1,7 @@
 -- Creación de la base de datos
-CREATE DATABASE IF NOT EXISTS UrbanDripStore;
 
-USE UrbanDripStore;
+-- CREATE DATABASE IF NOT EXISTS UrbanDripStore;
+-- USE UrbanDripStore;
 
 -- Tabla Clientes
 CREATE TABLE IF NOT EXISTS Clientes (
@@ -26,13 +26,14 @@ CREATE TABLE IF NOT EXISTS ClientesRegistrados (
 CREATE TABLE IF NOT EXISTS Categorias (
     idCategoria INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50),
-    descripcion VARCHAR(80)
+    descripcion VARCHAR(200)
 );
 
 -- Tabla Promociones
 CREATE TABLE IF NOT EXISTS Promociones (
     idPromocion INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(80),
+    nombre VARCHAR(50), 
+    descripcion VARCHAR(200), 
     descuento DECIMAL(5, 2),
     fechaInicio DATE,
     fechaFin DATE,
@@ -43,7 +44,9 @@ CREATE TABLE IF NOT EXISTS Promociones (
 CREATE TABLE IF NOT EXISTS Productos (
     idProducto INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50),
-    descripcion VARCHAR(200),
+    descripcion VARCHAR(400), 
+    marca VARCHAR(40),
+    talle VARCHAR(10), 
     precio DECIMAL(10, 2),
     estado VARCHAR(20),
     idCategoria INT,
@@ -112,6 +115,8 @@ CREATE TABLE IF NOT EXISTS Transacciones (
     detalleDePago VARCHAR(100),
     montoPagado DECIMAL(10, 2),
     fecha DATE,
+	idPedido INT, 
     idCliente INT,
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido), 
     FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)
 );
