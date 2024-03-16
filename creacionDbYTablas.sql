@@ -1,7 +1,8 @@
 -- Creación de la base de datos
+DROP DATABASE IF EXISTS urbandripstore;
 
--- CREATE DATABASE IF NOT EXISTS UrbanDripStore;
--- USE UrbanDripStore;
+CREATE DATABASE IF NOT EXISTS UrbanDripStore;
+USE UrbanDripStore;
 
 -- Tabla Clientes
 CREATE TABLE IF NOT EXISTS Clientes (
@@ -12,10 +13,10 @@ CREATE TABLE IF NOT EXISTS Clientes (
     correo VARCHAR(30)
 );
 
--- Tabla ClientesRegistrados
-CREATE TABLE IF NOT EXISTS ClientesRegistrados (
-    idClienteRegistrado INT PRIMARY KEY AUTO_INCREMENT,
-    usuario VARCHAR(50),
+-- Tabla Usuarios
+CREATE TABLE IF NOT EXISTS Usuarios(
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nomUsuario VARCHAR(50),
     contrasenia VARCHAR(20),
     fechaRegistro DATE,
     idCliente INT,
@@ -32,7 +33,6 @@ CREATE TABLE IF NOT EXISTS Categorias (
 -- Tabla Promociones
 CREATE TABLE IF NOT EXISTS Promociones (
     idPromocion INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50), 
     descripcion VARCHAR(200), 
     descuento DECIMAL(5, 2),
     fechaInicio DATE,
@@ -46,58 +46,11 @@ CREATE TABLE IF NOT EXISTS Productos (
     nombre VARCHAR(50),
     descripcion VARCHAR(400), 
     marca VARCHAR(40),
-    talle VARCHAR(10), 
     precio DECIMAL(10, 2),
-    estado VARCHAR(20),
     idCategoria INT,
     idPromocion INT,
     FOREIGN KEY (idCategoria) REFERENCES Categorias(idCategoria),
     FOREIGN KEY (idPromocion) REFERENCES Promociones(idPromocion)
-);
-
--- Tabla ProductosFavoritos
-CREATE TABLE IF NOT EXISTS ProductosFavoritos (
-    idFavorito INT PRIMARY KEY AUTO_INCREMENT,
-    fechaAgregado DATE,
-    idProducto INT,
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
-);
-
--- Tabla ClientesProductosFavoritos
-CREATE TABLE IF NOT EXISTS ClientesProductosFavoritos (
-    idClienteRegistrado INT,
-    idFavorito INT,
-    FOREIGN KEY (idClienteRegistrado) REFERENCES ClientesRegistrados(idClienteRegistrado),
-    FOREIGN KEY (idFavorito) REFERENCES ProductosFavoritos(idFavorito)
-);
-
--- Tabla DetallesPedidos
-CREATE TABLE IF NOT EXISTS DetallesPedidos (
-    idDetalle INT PRIMARY KEY AUTO_INCREMENT,
-    cantidad INT,
-    precioUnitario DECIMAL(10, 2),
-    idProducto INT,
-    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
-);
-
--- Tabla Pedidos
-CREATE TABLE IF NOT EXISTS Pedidos (
-    idPedido INT PRIMARY KEY AUTO_INCREMENT,
-    fecha DATE,
-    estado VARCHAR(20),
-    idCliente INT,
-    idDetalle INT,
-    FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente),
-    FOREIGN KEY (idDetalle) REFERENCES DetallesPedidos(idDetalle)
-);
-
--- Tabla Envíos
-CREATE TABLE IF NOT EXISTS Envios (
-    idEnvio INT PRIMARY KEY AUTO_INCREMENT,
-    detalleDeEnvio VARCHAR(200),
-    estado VARCHAR(20),
-    idPedido INT,
-    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
 );
 
 -- Tabla Inventario
@@ -108,14 +61,91 @@ CREATE TABLE IF NOT EXISTS Inventario (
     FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
 );
 
+-- Tabla talles
+CREATE TABLE IF NOT EXISTS Talles (
+	idTalle INT PRIMARY KEY AUTO_INCREMENT,
+	talla VARCHAR(5) 
+);
+
+-- Tabla Productos y talles 
+CREATE TABLE IF NOT EXISTS ProductosTalles(
+	idTalle INT REFERENCES Talles(idTalle),
+    idProducto INT REFERENCES Productos(idProducto),
+    PRIMARY KEY(idTalle,idProducto)
+);
+
+-- Tabla devoluciones
+CREATE TABLE IF NOT EXISTS Devoluciones(
+	idDevolucion INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE,
+    motivo TEXT,
+    idProducto INT,
+    idCliente INT,
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
+    FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)
+);
+
+-- Tabla ProductosFavoritos
+CREATE TABLE IF NOT EXISTS ProductosFavoritos (
+    idFavorito INT PRIMARY KEY AUTO_INCREMENT,
+    fechaAgregado DATE,
+    idProducto INT,
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto)
+);
+
+-- Tabla UsuariosProductosFavoritos
+CREATE TABLE IF NOT EXISTS UsuariosProductosFavoritos (
+    idUsuario INT REFERENCES Usuarios(idUsuario),
+    idFavorito INT REFERENCES ProductosFavoritos(idFavorito),
+    PRIMARY KEY (idUsuario, idFavorito)
+);
+
+-- Tabla Pedidos
+CREATE TABLE IF NOT EXISTS Pedidos (
+    idPedido INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATE,
+    idCliente INT,
+    FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)
+);
+
+-- Tabla DetallesPedidos
+CREATE TABLE IF NOT EXISTS DetallesPedidos (
+    idDetalle INT PRIMARY KEY AUTO_INCREMENT,
+    cantidad INT,
+    idPedido INT,
+    idProducto INT,
+    FOREIGN KEY (idProducto) REFERENCES Productos(idProducto),
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
+);
+
+-- Tabla facturas
+CREATE TABLE IF NOT EXISTS Facturas (
+	idFactura INT PRIMARY KEY AUTO_INCREMENT,
+    fechaEmision DATE,
+    idPedido INT,
+    idCliente INT,
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido),
+    FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)
+);
+
+-- Tabla Envíos
+CREATE TABLE IF NOT EXISTS Envios (
+    idEnvio INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(200),
+    estado VARCHAR(20) DEFAULT 'Pendiente',
+    fechaEnvio DATE DEFAULT NULL,
+    fechaEntrega DATE DEFAULT NULL,
+    idPedido INT,
+    FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido)
+);
+
 -- Tabla Transacciones
 CREATE TABLE IF NOT EXISTS Transacciones (
     idTransaccion INT PRIMARY KEY AUTO_INCREMENT,
-    metodoDePago VARCHAR(50),
-    detalleDePago VARCHAR(100),
-    montoPagado DECIMAL(10, 2),
+    metodoDePago VARCHAR(50) DEFAULT NULL,
     fecha DATE,
-	idPedido INT, 
+    estado VARCHAR(30) DEFAULT 'Pendiente',
+	idPedido INT UNIQUE, 
     idCliente INT,
     FOREIGN KEY (idPedido) REFERENCES Pedidos(idPedido), 
     FOREIGN KEY (idCliente) REFERENCES Clientes(idCliente)

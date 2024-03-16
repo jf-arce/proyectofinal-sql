@@ -7,14 +7,13 @@ BEGIN
 END; //
 DELIMITER ;
 
-/*Se crea un envio nuevo asociado al pedido creado, 
-inicializadolo en pendiente y sus fechas en NULL*/
+/*Se crea un envio nuevo asociado al pedido creado*/
 DELIMITER //
 CREATE TRIGGER generarNuevoEnvio AFTER INSERT ON Pedidos
 FOR EACH ROW
 BEGIN
-    INSERT INTO Envios (descripcion, estado, fechaEnvio, fechaEntrega, idPedido)
-    VALUES ('Nuevo envío', 'Pendiente', NULL, NULL, NEW.idPedido);
+    INSERT INTO Envios (descripcion, idPedido)
+    VALUES ('Nuevo envío', NEW.idPedido);
 END; //
 DELIMITER ;
 
@@ -34,11 +33,11 @@ CREATE TRIGGER actualizarFechasEnvioEntrega BEFORE UPDATE ON Envios
 FOR EACH ROW
 BEGIN
     IF NEW.estado != OLD.estado THEN
-        IF NEW.estado = 'en camino' AND OLD.fechaEnvio IS NULL THEN
+        IF NEW.estado = 'En camino' AND OLD.fechaEnvio IS NULL THEN
             SET NEW.fechaEnvio = CURDATE();
         END IF;
 
-        IF NEW.estado = 'entregado' AND OLD.fechaEntrega IS NULL THEN
+        IF NEW.estado = 'Entregado' AND OLD.fechaEntrega IS NULL THEN
             SET NEW.fechaEntrega = CURDATE();
         END IF;
     END IF;
