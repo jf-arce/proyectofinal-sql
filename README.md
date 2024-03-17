@@ -7,12 +7,12 @@
 Este proyecto consiste en una base de datos relacional diseñada para gestionar una tienda de ropa online. Desarrollada utilizando MySQL, esta base de datos fue creada como parte del trabajo final del curso de SQL impartido por Coderhouse. La estructura de la base de datos permite gestionar eficientemente productos, categorías, clientes, pedidos y más, proporcionando una sólida infraestructura para el funcionamiento de una tienda virtual de indumentaria.
 
 
-## Documentacion
+## Documentación
 
 [Documentation](https://linktodocumentation)
 
 
-## Caracteristicas
+## Características
 
 - Gestión de Productos: Agregar, modificar, eliminar y listar productos de la tienda.
 - Categorización: Organización de productos por categorías.
@@ -24,7 +24,7 @@ Este proyecto consiste en una base de datos relacional diseñada para gestionar 
 - Generación de Informes: Informes y estadísticas sobre ventas, inventario y clientes.
 
 
-## Screenshots
+## Carátula del proyecto
 
 ![Caratula del proyecto](./utils/caratula.png)
 
