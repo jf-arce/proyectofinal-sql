@@ -26,6 +26,6 @@ Este proyecto consiste en una base de datos relacional diseñada para gestionar 
 
 ## Screenshots
 
-![App Screenshot](https://drive.google.com/file/d/1hvCc9pgv882PbHK5mxVvjkUVXxYLw2Ee/view?usp=sharing)
+![Caratula del proyecto](./utils/caratula.png)
 
 
