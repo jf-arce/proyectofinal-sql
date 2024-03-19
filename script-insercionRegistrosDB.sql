@@ -362,6 +362,161 @@ VALUES
     (NULL, '2024-04-01', 'Pendiente', 34, 8),
     ('Transferencia bancaria', '2024-04-02', 'Completado', 35, 10);
 
+INSERT INTO Talles (talla)
+VALUES 
+	('sm'),
+    ('s'),
+	('l'),
+	('xl'),
+    ('xxl');
+
+INSERT INTO ProductosTalles (idTalle, idProducto)
+VALUES 
+    (1, 1),   -- Fear of God Essentials Hoodie Wood - Talle: sm
+    (3, 1),   -- Fear of God Essentials Hoodie Wood - Talle: l
+    (4, 1),   -- Fear of God Essentials Hoodie Wood - Talle: xl
+    (1, 2),   -- Fear of God Essentials Kids Hoodie Iron - Talle: sm
+    (4, 2),   -- Fear of God Essentials Kids Hoodie Iron - Talle: xl
+    (2, 3),   -- BUZO VANS TRIED AND TRUE RUSTICO CRUDO - Talle: s
+    (5, 3),   -- BUZO VANS TRIED AND TRUE RUSTICO CRUDO - Talle: xxl
+    (1, 4),   -- BUZO VANS CUSTOM TALL PO LADRILLO - Talle: sm
+    (3, 4),   -- BUZO VANS CUSTOM TALL PO LADRILLO - Talle: l
+    (2, 5),   -- Buzo Canguro Karma - Talle: s
+    (3, 5),   -- Buzo Canguro Karma - Talle: l
+    (4, 5),   -- Buzo Canguro Karma - Talle: xl
+    (1, 6),   -- Jean Cargo Loose - Talle: sm
+    (5, 6),   -- Jean Cargo Loose - Talle: xxl
+    (2, 7),   -- Jean Rich - Talle: s
+    (5, 7),   -- Jean Rich - Talle: xxl
+    (1, 8),   -- Fear of God Essentials Kids Hoodie Olive - Talle: sm
+    (3, 8),   -- Fear of God Essentials Kids Hoodie Olive - Talle: l
+    (4, 8),   -- Fear of God Essentials Kids Hoodie Olive - Talle: xl
+    (2, 9),   -- Fear of God Essentials Kids Hoodie Maroon - Talle: s
+    (4, 9),   -- Fear of God Essentials Kids Hoodie Maroon - Talle: xl
+    (1, 10),  -- Fear of God Essentials Hoodie White - Talle: sm
+    (2, 10),  -- Fear of God Essentials Hoodie White - Talle: s
+    (3, 10),  -- Fear of God Essentials Hoodie White - Talle: l
+    (4, 10),  -- Fear of God Essentials Hoodie White - Talle: xl
+    (1, 11),  -- Nike Sportswear Club Fleece Hoodie - Talle: sm
+    (5, 11),  -- Nike Sportswear Club Fleece Hoodie - Talle: xxl
+    (1, 12),  -- Adidas Originals Trefoil Hoodie - Talle: sm
+    (3, 12),  -- Adidas Originals Trefoil Hoodie - Talle: l
+    (4, 12),  -- Adidas Originals Trefoil Hoodie - Talle: xl
+    (1, 13),  -- Champion Reverse Weave Pullover Hoodie - Talle: sm
+    (3, 13),  -- Champion Reverse Weave Pullover Hoodie - Talle: l
+    (5, 13),  -- Champion Reverse Weave Pullover Hoodie - Talle: xxl
+    (2, 14),  -- Drew Classic Logo Hoodie - Talle: s
+    (5, 14),  -- Drew Classic Logo Hoodie - Talle: xxl
+    (1, 15),  -- Drew Essential Logo T-Shirt - Talle: sm
+    (2, 15),  -- Drew Essential Logo T-Shirt - Talle: s
+    (3, 15),  -- Drew Essential Logo T-Shirt - Talle: l
+    (4, 15),  -- Drew Essential Logo T-Shirt - Talle: xl
+    (1, 16),  -- Vans Classic Logo T-Shirt - Talle: sm
+    (2, 16),  -- Vans Classic Logo T-Shirt - Talle: s
+    (3, 16),  -- Vans Classic Logo T-Shirt - Talle: l
+    (4, 16),  -- Vans Classic Logo T-Shirt - Talle: xl
+    (1, 17),  -- DC Shoes Star T-Shirt - Talle: sm
+    (2, 17),  -- DC Shoes Star T-Shirt - Talle: s
+    (3, 17),  -- DC Shoes Star T-Shirt - Talle: l
+    (4, 17),  -- DC Shoes Star T-Shirt - Talle: xl
+    (1, 18),  -- Nike Sportswear Club Fleece Pants - Talle: sm
+    (2, 18),  -- Nike Sportswear Club Fleece Pants - Talle: s
+    (4, 18),  -- Nike Sportswear Club Fleece Pants - Talle: xl
+    (1, 19),  -- Adidas Originals SST Track Pants - Talle: sm
+    (2, 19),  -- Adidas Originals SST Track Pants - Talle: s
+    (3, 19),  -- Adidas Originals SST Track Pants - Talle: l
+    (4, 19),  -- Adidas Originals SST Track Pants - Talle: xl
+    (1, 20),  -- Champion Reverse Weave Jogger Pants - Talle: sm
+    (2, 20),  -- Champion Reverse Weave Jogger Pants - Talle: s
+    (3, 21),  -- Drew Classic Logo Sweatpants - Talle: l
+    (4, 21),  -- Drew Classic Logo Sweatpants - Talle: xl
+    (1, 22),  -- Vans Authentic Chino Pants - Talle: sm
+    (2, 22),  -- Vans Authentic Chino Pants - Talle: s
+    (3, 22),  -- Vans Authentic Chino Pants - Talle: l
+    (4, 22),  -- Vans Authentic Chino Pants - Talle: xl
+    (2, 23),  -- DC Shoes Worker Straight Fit Jeans - Talle: s
+    (3, 23),  -- DC Shoes Worker Straight Fit Jeans - Talle: l
+    (4, 23),  -- DC Shoes Worker Straight Fit Jeans - Talle: xl
+    (1, 24),  -- Nike Futura True Snapback Hat - Talle: sm
+    (2, 24),  -- Nike Futura True Snapback Hat - Talle: s
+    (3, 24),  -- Nike Futura True Snapback Hat - Talle: l
+    (4, 24),  -- Nike Futura True Snapback Hat - Talle: xl
+    (1, 25),  -- Adidas Originals Relaxed Strapback Hat - Talle: sm
+    (4, 25),  -- Adidas Originals Relaxed Strapback Hat - Talle: xl
+    (1, 26),  -- Vans Full Patched Hoodie - Talle: sm
+    (3, 26),  -- Vans Full Patched Hoodie - Talle: l
+    (4, 26),  -- Vans Full Patched Hoodie - Talle: xl
+    (1, 27),  -- DC Shoes Rebel Star Hoodie - Talle: sm
+    (2, 27),  -- DC Shoes Rebel Star Hoodie - Talle: s
+    (1, 28),  -- Nike Sportswear Essential T-Shirt - Talle
+    (3, 29),  -- Adidas Originals California T-Shirt - Talle: l
+    (4, 29),  -- Adidas Originals California T-Shirt - Talle: xl
+    (2, 30),  -- Champion Heritage Script T-Shirt - Talle: s
+    (4, 30);  -- Champion Heritage Script T-Shirt - Talle: xl
+    
+INSERT INTO Devoluciones (fecha, motivo, idProducto, idCliente)
+VALUES 
+    ('2024-03-18', 'Talle incorrecto', 1, 1),
+    ('2024-03-17', 'Producto defectuoso', 7, 2),
+    ('2024-03-16', 'Color incorrecto', 11, 3),
+    ('2024-03-15', 'No es lo que esperaba', 19, 4),
+    ('2024-03-14', 'Talle incorrecto', 4, 5),
+    ('2024-03-13', 'Producto defectuoso', 9, 6),
+    ('2024-03-12', 'Talle incorrecto', 16, 7),
+    ('2024-03-11', 'Producto defectuoso', 20, 8),
+    ('2024-03-10', 'No es lo que esperaba', 14, 9),
+    ('2024-03-09', 'Talle incorrecto', 5, 10),
+    ('2024-03-08', 'Producto defectuoso', 12, 11),
+    ('2024-03-07', 'No es lo que esperaba', 18, 12),
+    ('2024-03-06', 'Talle incorrecto', 17, 13),
+    ('2024-03-05', 'Producto defectuoso', 13, 14),
+    ('2024-03-04', 'No es lo que esperaba', 10, 15),
+    ('2024-03-03', 'Talle incorrecto', 15, 16),
+    ('2024-03-02', 'Producto defectuoso', 8, 17),
+    ('2024-03-01', 'No es lo que esperaba', 2, 18),
+    ('2024-02-29', 'Talle incorrecto', 3, 19);
+
+INSERT INTO Facturas (fechaEmision, idPedido, idCliente)
+VALUES 
+    ('2024-03-05', 1, 7),
+    ('2024-02-23', 2, 3),
+    ('2024-03-01', 3, 9),
+    ('2024-02-28', 4, 10),
+    ('2024-02-22', 5, 5),
+    ('2024-02-25', 6, 8),
+    ('2024-03-03', 7, 1),
+    ('2024-02-27', 8, 4),
+    ('2024-03-04', 9, 6),
+    ('2024-02-29', 10, 2),
+    ('2024-03-02', 11, 10),
+    ('2024-03-06', 12, 8),
+    ('2024-03-07', 13, 7),
+    ('2024-02-24', 14, 3),
+    ('2024-03-10', 15, 1),
+    ('2024-03-09', 16, 6),
+    ('2024-03-12', 17, 5),
+    ('2024-03-08', 18, 2),
+    ('2024-03-11', 19, 9),
+    ('2024-03-13', 20, 4),
+    ('2024-03-15', 21, 3),
+    ('2024-03-16', 22, 5),
+    ('2024-03-17', 23, 2),
+    ('2024-03-18', 24, 7),
+    ('2024-03-19', 25, 1),
+    ('2024-03-20', 26, 4),
+    ('2024-03-21', 27, 6),
+    ('2024-03-22', 28, 8),
+    ('2024-03-23', 29, 10),
+    ('2024-03-24', 30, 9),
+    ('2024-03-25', 31, 3),
+    ('2024-03-26', 32, 5),
+    ('2024-03-27', 33, 2),
+    ('2024-03-28', 34, 7),
+    ('2024-03-29', 35, 1);
+
+
+	
+    
 
 
 

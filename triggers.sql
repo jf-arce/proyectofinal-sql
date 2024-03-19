@@ -43,3 +43,22 @@ BEGIN
     END IF;
 END; //
 DELIMITER ;
+
+-- Trigger para cuando una transaccion de un pedido este en estado 'Completado' se genere la factura 
+
+/* trigger crea una nueva factura en la tabla "Facturas"
+cada vez que se actualiza una fila en la tabla "Transacciones" 
+y el estado de esa transacción se cambia a "Completado". 
+La factura se genera con la fecha actual y los detalles del pedido 
+y del cliente asociados con esa transacción.
+*/
+DELIMITER // 
+CREATE TRIGGER generarFactura AFTER UPDATE ON Transacciones
+FOR EACH ROW
+BEGIN
+	IF NEW.estado = 'Completado' THEN
+		INSERT INTO Facturas(fechaEmision, idPedido, idCliente)
+        VALUES (CURDATE(), NEW.idPedido, NEW.idCliente);
+	END IF;
+END; //
+DELIMITER ;

@@ -82,3 +82,23 @@ JOIN Clientes c ON (p.idCliente = c.idCliente)
 JOIN Envios e ON (e.idPedido = p.idPedido) 
 JOIN Transacciones t ON (t.idPedido = p.idPedido)
 GROUP BY p.idPedido, e.estado, c.nombre,t.metodoDePago;
+
+/*vista todos los productos con talles, categoria y stock*/
+-- CREATE OR REPLACE VIEW vistaTodosLosProductos AS
+SELECT 
+	prod.idProducto,
+    prod.nombre,
+    prod.precio,
+    prod.marca,
+    prod.descripcion,
+    cat.nombre AS categoria,
+    inv.stock,
+    GROUP_CONCAT(t.talla SEPARATOR ', ') AS Talles
+FROM Productos prod
+JOIN Categorias cat ON (cat.idCategoria = prod.idCategoria)
+JOIN Inventario inv ON (inv.idProducto = prod.idProducto)
+JOIN ProductosTalles pt ON (pt.idProducto = prod.idProducto)
+JOIN Talles t ON (t.idTalle = pt.idTalle)
+GROUP BY prod.idProducto,inv.stock;
+
+/*Vista para cada devolucion mostrando cliente y producto asociado*/
