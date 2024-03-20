@@ -42,3 +42,34 @@ BEGIN
     WHERE idProducto = productID;
 END //
 DELIMITER ;
+
+/*Agregar producto a favorito*/
+DELIMITER //
+
+CREATE PROCEDURE AgregarProductoAFavoritos(
+    IN p_idUsuario INT,
+    IN p_idProducto INT
+)
+BEGIN
+    DECLARE v_favorito_existente INT;
+
+    SELECT COUNT(*) INTO v_favorito_existente
+    FROM ProductosFavoritos
+    WHERE idProducto = p_idProducto;
+
+    IF v_favorito_existente = 0 THEN
+        INSERT INTO ProductosFavoritos (fechaAgregado, idProducto)
+        VALUES (CURDATE(), p_idProducto);
+
+        SELECT LAST_INSERT_ID() AS idFavorito;
+
+        INSERT INTO UsuariosProductosFavoritos (idUsuario, idFavorito)
+        VALUES (p_idUsuario, LAST_INSERT_ID());
+
+        SELECT 'Producto agregado a favoritos exitosamente.' AS mensaje;
+    ELSE
+        SELECT 'El producto ya está en la lista de favoritos.' AS mensaje;
+    END IF;
+END//
+
+DELIMITER ;

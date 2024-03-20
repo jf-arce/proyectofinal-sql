@@ -35,6 +35,7 @@ SELECT
     prod.idProducto,
     prod.nombre AS producto_comprado,
 	prod.precio,
+    c.idCliente,
     c.nombre AS nombre_cliente,
     c.correo,
     c.telefono
@@ -83,8 +84,8 @@ JOIN Envios e ON (e.idPedido = p.idPedido)
 JOIN Transacciones t ON (t.idPedido = p.idPedido)
 GROUP BY p.idPedido, e.estado, c.nombre,t.metodoDePago;
 
-/*vista todos los productos con talles, categoria y stock*/
--- CREATE OR REPLACE VIEW vistaTodosLosProductos AS
+/*vista de todos los productos con talles, categoria y stock*/
+CREATE OR REPLACE VIEW vistaTodosLosProductos AS
 SELECT 
 	prod.idProducto,
     prod.nombre,
@@ -102,3 +103,46 @@ JOIN Talles t ON (t.idTalle = pt.idTalle)
 GROUP BY prod.idProducto,inv.stock;
 
 /*Vista para cada devolucion mostrando cliente y producto asociado*/
+CREATE OR REPLACE VIEW vistaDetallesDevoluciones AS
+SELECT 
+	dev.idDevolucion,
+    dev.fecha,
+    dev.motivo,
+    c.nombre AS nombre_cliente,
+    p.nombre AS producto_a_devolver
+FROM Devoluciones dev
+JOIN Clientes c ON (c.idCliente = dev.idCliente)
+JOIN Productos p ON (p.idProducto = dev.idProducto);
+
+/*Vista Factura Detallada*/
+CREATE OR REPLACE VIEW vistaFacturasDetalladas AS
+SELECT 
+	f.idFactura,
+    f.fechaEmision,
+    c.nombre AS nombre_cliente,
+    p.idPedido,
+    prod.nombre AS nombre_producto,
+    calcularMontoTotal(p.idPedido) AS monto_total,
+    t.metodoDePago
+FROM Facturas f
+JOIN Clientes c ON (c.idCliente = f.idCliente)
+JOIN Pedidos p ON (p.idPedido = f.idPedido)
+JOIN DetallesPedidos dp ON (dp.idPedido = p.idPedido)
+JOIN Productos prod ON (prod.idProducto = dp.idProducto)
+JOIN Transacciones t ON (t.idPedido = p.idPedido)
+ORDER BY idFactura;
+
+/*Vista historial de compra de clientes*/
+CREATE OR REPLACE VIEW vistaHistorialComprasClientes AS
+SELECT 
+		t.idCliente,
+		c.nombre AS nombre_cliente,
+		t.fecha AS fecha_de_pago,
+		t.idTransaccion,
+		t.metodoDePago,
+		t.idPedido,
+		calcularMontoTotal(t.idPedido) AS monto_total
+FROM Transacciones t 
+JOIN Clientes c ON (c.idCliente = t.idCliente)
+WHERE t.estado = "Completado"
+ORDER BY c.idCliente;
